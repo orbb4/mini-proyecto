@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 int ListArr::size(){
-	cout<<this->tamano<<endl;
 }
 
 void ListArr::insert_left(int v){

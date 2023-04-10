@@ -1,5 +1,9 @@
 #import <iostream>
 class ListArr{
+private:
+	Node* nodoHead;
+	Node* nodoTail;
+	Node* nodoTop;
 public:
 	virtual int size()=0;
 	virtual void insert_left(int v)=0;
