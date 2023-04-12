@@ -1,9 +1,13 @@
 #import <iostream>
+#import <Nodes.h>
+
 class ListArr{
 private:
+	int b;
+	int count;
 	Node* nodoHead;
 	Node* nodoTail;
-	Node* nodoTop;
+	rNode* nodoTop;
 public:
 	virtual int size()=0;
 	virtual void insert_left(int v)=0;
