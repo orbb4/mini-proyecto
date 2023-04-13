@@ -1,5 +1,5 @@
-#import <iostream>
-#import <Nodes.h>
+#include <iostream>
+#include <Nodes.h>
 
 class ListArr{
 private:
