@@ -1,18 +1,23 @@
+#ifndef LISTARR_H
+#define LISTARR_H
 #include <iostream>
-#include <Nodes.h>
+#include "Nodes.h"
 
 class ListArr{
 private:
 	int b;
 	int count;
-	Node* nodoHead;
-	Node* nodoTail;
+	pNode* nodoHead;
+	pNode* nodoTail;
 	rNode* nodoTop;
 public:
-	virtual int size()=0;
-	virtual void insert_left(int v)=0;
-	virtual void insert_right(int v)=0;
-	virtual void insert(int v, int i)=0;
-	virtual void print()=0;
-	virtual bool find(int v)=0;
+	ListArr(int b);
+	int size();
+	void insert_left(int v);
+	void insert_right(int v);
+	void insert(int v, int i);
+	void print();
+	bool find(int v);
 };
+
+#endif
