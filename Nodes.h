@@ -13,6 +13,7 @@ private:
 	int arr[b]; 
 	int numDeDatos;
 public:
+	setPtrder(pNode* ptrDer);
 	pNode(pNode* ptrder, int b);
 }
 class rNode : Node{ //Nodo resumen
