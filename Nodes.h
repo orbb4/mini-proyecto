@@ -1,4 +1,4 @@
-#import <iostream>
+#include <iostream>
 
 class Node{
 protected:
@@ -10,7 +10,7 @@ protected:
 	pNode* ptrder;
 private:
 	int b; 
-	int arr[b]; 
+	int *arr; 
 	int numDeDatos;
 public:
 	setPtrder(pNode* ptrDer);
