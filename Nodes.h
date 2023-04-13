@@ -7,11 +7,13 @@ protected:
 }
 class pNode : Node{ //Nodo de lista
 protected:
-	Node* ptrder;
+	pNode* ptrder;
 private:
 	int b; 
 	int arr[b]; 
 	int numDeDatos;
+public:
+	pNode(pNode* ptrder, int b);
 }
 class rNode : Node{ //Nodo resumen
 protected:
