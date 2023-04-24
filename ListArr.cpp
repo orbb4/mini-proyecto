@@ -12,19 +12,26 @@ int ListArr::size(){
 
 void ListArr::insert_left(int v){
 	if(count == 0){
-		pNode *first = new pNode(nullptr, b);
+		
+		pNode *second = new pNode(nullptr, b);
+		pNode *first = new pNode(second, b);
 		first->insert(0, v);
 		first->used++;
 		nodoHead = first;
-		nodoTail = first;
-		count++;
-	// si el arreglo de la derecha está lleno, se crea uno nuevo a la derecha de la cola
+		nodoTail = second;
+		count+=2;
+		rNode top = new rNode(first, second);
+		nodoTop = top;
+	// si el arreglo de la izquierda está lleno, se crean 2 nuevos a la izquierda de la cola
 	}else if(nodoHead->used == b){
-		pNode *newNode = new pNode(nodoHead, b);
-		newNode->insert(0, v);
-		newNode->used++;
-		nodoHead = newNode;
-		count++;
+		pNode *newNode2 = new pNode(nodoHead, b);
+		pNode *newNode1 = new pNode(newNode2, b);
+		newNode1->insert(0, v);
+		newNode1->used++;
+		nodoHead = newNode1;
+		count+=2;
+		// creamos nuevos nodos resumen:
+		rNode newRes = new rNode(newNode1, newNode2);s
 	// si queda espacio en la cola	
 	}else{
 		std::cout << "Used(head): " << nodoHead->used << std::endl;
