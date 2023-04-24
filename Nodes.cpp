@@ -31,3 +31,7 @@ rNode::rNode(Node* ptrizq, Node* ptrder){
 	this->ptrizq = ptrizq;
 	this->ptrder = ptrder;
 }
+
+Node* rNode::getPtrIzq(){
+	return this->ptrizq;
+}

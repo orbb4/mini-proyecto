@@ -11,8 +11,7 @@ int ListArr::size(){
 }
 
 void ListArr::insert_left(int v){
-	if(count == 0){
-		
+	if(count == 0){	
 		pNode *second = new pNode(nullptr, b);
 		pNode *first = new pNode(second, b);
 		first->insert(0, v);
@@ -20,7 +19,7 @@ void ListArr::insert_left(int v){
 		nodoHead = first;
 		nodoTail = second;
 		count+=2;
-		rNode top = new rNode(first, second);
+		rNode* top = new rNode(first, second);
 		nodoTop = top;
 	// si el arreglo de la izquierda está lleno, se crean 2 nuevos a la izquierda de la cola
 	}else if(nodoHead->used == b){
@@ -31,7 +30,22 @@ void ListArr::insert_left(int v){
 		nodoHead = newNode1;
 		count+=2;
 		// creamos nuevos nodos resumen:
-		rNode newRes = new rNode(newNode1, newNode2);s
+		rNode *newRes = new rNode(newNode1, newNode2); // nodo que une a los nodos previamente creados
+		rNode *actual = nodoTop;
+		int depth = count/2 - 1;
+		rNode *arrNode[depth];
+		for (int i = 0; i < count/2 - 1; i++)
+		{
+			arrNode[i] = actual;
+			actual = actual->getPtrIzq();
+		}
+		arrNode[count/2 - 1] = actual;
+		for (int i = count/2 - 1; i < 0; i--)
+		{
+			rNode *newRes2 = new rNode(newRes, arrNode[i]);
+			newRes = newRes2;                                                                                        
+			
+		}
 	// si queda espacio en la cola	
 	}else{
 		std::cout << "Used(head): " << nodoHead->used << std::endl;

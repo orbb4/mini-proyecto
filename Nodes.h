@@ -7,14 +7,16 @@ protected:
 	Node* ptrder;
 	Node* ptrizq;	
 };
-class pNode : Node{ //Nodo de lista
+class pNode : public Node{ //Nodo de lista
 protected:
-	pNode* ptrder;
+	Node* ptrder;
+	Node* ptrizq;
 private:
 	int b;
 	int *arr; 
 	
 public:
+	bool isR;
 	// insera un elemento en arr en un index dado
 	void insert(int index, int dato);
 	int* getArr();
@@ -24,7 +26,7 @@ public:
 	int used;
 	pNode(pNode* ptrder, int b);
 };
-class rNode : Node{ //Nodo resumen
+class rNode : public Node{ //Nodo resumen
 protected:
 	Node* ptrder;
 	Node* ptrizq;
@@ -33,6 +35,7 @@ private:
 	int cap;
 public:
 	rNode(Node* ptrizq, Node* ptrder);
+	rNode *getPtrIzq();
 };
 
 #endif
