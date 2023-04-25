@@ -7,6 +7,8 @@ class ListArr{
 private:
 	int b;
 	int count;
+	int rCount;
+	int pCount;
 	pNode* nodoHead;
 	pNode* nodoTail;
 	rNode* nodoTop;
@@ -18,6 +20,7 @@ public:
 	void insert(int v, int i);
 	void print();
 	bool find(int v);
+	void redoTree();
 };
 
 #endif

@@ -9,8 +9,7 @@ protected:
 };
 class pNode : public Node{ //Nodo de lista
 protected:
-	Node* ptrder;
-	Node* ptrizq;
+	pNode* ptrder;
 private:
 	int b;
 	int *arr; 
@@ -27,15 +26,18 @@ public:
 	pNode(pNode* ptrder, int b);
 };
 class rNode : public Node{ //Nodo resumen
-protected:
-	Node* ptrder;
-	Node* ptrizq;
 private:
 	int used;
 	int cap;
 public:
+	// ptr nodos resumen
+	rNode* ptrderR;
+	rNode* ptrizqR;
+	// ptr nodos principales (hojas del arbol¿)
+	pNode* ptrderP;
+	pNode* ptrizqP;
+
 	rNode(Node* ptrizq, Node* ptrder);
-	rNode *getPtrIzq();
 };
 
 #endif

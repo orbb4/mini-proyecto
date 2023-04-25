@@ -1,56 +1,60 @@
 #include "ListArr.h"
 #include <stdio.h>
+#include <vector>
+
+void destroyTree(rNode* top){
+	std::cout << "destroyed: " <<top<< std::endl;
+	if(top == NULL) return;
+
+	destroyTree(top->ptrizqR);
+
+	destroyTree(top->ptrderR);
+	delete(top);
+}
+
+void ListArr::redoTree(){
+	rNodo newtop = new rNode(nullptr, nullptr);
+	std::vector<rNode> resnodes;
+	resnodes.push_back(newtop);
+	int numRes = 1;
+	destroyTree(nodoTop);
+	while(numRes*2 < pCount){
+	}
+}
 
 ListArr::ListArr(int capacity){
 	this->count = 0;
+	rCount = 0;
+	pCount = 0;
 	this->b = capacity;
 }
 
 int ListArr::size(){
-	return 0;
+	return count;
 }
 
 void ListArr::insert_left(int v){
 	if(count == 0){	
-		pNode *second = new pNode(nullptr, b);
-		pNode *first = new pNode(second, b);
+		pNode *first = new pNode(nullptr, b);
 		first->insert(0, v);
 		first->used++;
 		nodoHead = first;
-		nodoTail = second;
-		count+=2;
-		rNode* top = new rNode(first, second);
+		nodoTail = first;
+		count+=1;
+		pCount+=1;
+		rNode* top = new rNode(first, nullptr);
 		nodoTop = top;
-	// si el arreglo de la izquierda está lleno, se crean 2 nuevos a la izquierda de la cola
-	}else if(nodoHead->used == b){
-		pNode *newNode2 = new pNode(nodoHead, b);
-		pNode *newNode1 = new pNode(newNode2, b);
-		newNode1->insert(0, v);
-		newNode1->used++;
-		nodoHead = newNode1;
-		count+=2;
-		// creamos nuevos nodos resumen:
-		rNode *newRes = new rNode(newNode1, newNode2); // nodo que une a los nodos previamente creados
-		rNode *actual = nodoTop;
-		int depth = count/2 - 1;
-		rNode *arrNode[depth];
-		for (int i = 0; i < count/2 - 1; i++)
-		{
-			arrNode[i] = actual;
-			actual = actual->getPtrIzq();
-		}
-		arrNode[count/2 - 1] = actual;
-		for (int i = count/2 - 1; i < 0; i--)
-		{
-			rNode *newRes2 = new rNode(newRes, arrNode[i]);
-			newRes = newRes2;                                                                                        
-			
-		}
-	// si queda espacio en la cola	
+		std::cout<<"count==0"<<std::endl;
+	// si el arreglo de la izquierda está lleno, se crean 1 nuevos a la izquierda de la cola
+	}else if(nodoHead->getUsed() == b){
+		pNode *newNode = new pNode(nodoHead, b);
+		newNode->insert(0, v);
+		newNode->used++;
+		nodoHead=newNode;
+		count++;
+		pCount++;
 	}else{
-		std::cout << "Used(head): " << nodoHead->used << std::endl;
-		int posicion = (nodoHead->used);
-		nodoHead->insert(posicion, v);
+		nodoHead->insert(nodoHead->getUsed(), v);
 		nodoHead->used++;
 	}
 }
