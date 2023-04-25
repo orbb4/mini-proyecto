@@ -18,7 +18,12 @@ void ListArr::redoTree(){
 	resnodes.push_back(newtop);
 	int numRes = 1;
 	destroyTree(nodoTop);
+	int i = 1;
 	while(numRes*2 < pCount){
+		for(int j = 0; j < i; j++){
+			rNode *actual = resnodes.pop_back();
+			actual->ptrderR = 
+		}
 	}
 }
 
