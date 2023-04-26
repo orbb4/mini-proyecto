@@ -7,13 +7,14 @@ protected:
 	Node* ptrder;
 	Node* ptrizq;	
 };
+
+
 class pNode : public Node{ //Nodo de lista
 protected:
 	pNode* ptrder;
 private:
 	int b;
 	int *arr; 
-	
 public:
 	bool isR;
 	// insera un elemento en arr en un index dado
@@ -25,6 +26,8 @@ public:
 	int used;
 	pNode(pNode* ptrder, int b);
 };
+
+
 class rNode : public Node{ //Nodo resumen
 private:
 	int used;
