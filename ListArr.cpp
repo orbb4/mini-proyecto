@@ -47,22 +47,26 @@ void ListArr::redoTree(){
 			temp->ptrderR = n2;
 			numRes+=2;
 			std::cout<<"en: numRes*2 < pCount. j= "<<j<<std::endl; 
-		}
-		// ahora que tenemos nodos resumen suficientes, conectamos la ultima capa de nodos a los arreglos! :)
-		std::cout<<"conetando ultima capa a los arreglos :)"<<std::endl; 
-		pNode *actualArr = nodoHead;
-		for(int j = 0; j < i; j++){		
-			rNode *temp = nodes.at(nodes.size()-1-j);
-			// actualizamos ptr izquierdo
-			temp->ptrizqP = actualArr;
-			// actualizamos ptr derecho	
-			actualArr=actualArr->getPtrDer(); // le asignamos al ptr derecho el nodo siguiente al previo(?)
-			temp->ptrderP = actualArr;
+			nodes.push_back(n1);
+			nodes.push_back(n2);
 		}
 		i++;
 	}
-
+	// ahora que tenemos nodos resumen suficientes, conectamos la ultima capa de nodos a los arreglos! :)
+	std::cout<<"conetando ultima capa a los arreglos :)"<<std::endl; 
+	pNode *actualArr = nodoHead;
+	for(int j = 0; j < i; j++){		
+		rNode *temp = nodes.at(nodes.size()-1-j);
+		std::cout<<"j="<<j<<std::endl;
+		// actualizamos ptr izquierdo
+		temp->ptrizqP = actualArr;
+		// actualizamos ptr derecho	
+		actualArr=actualArr->getPtrDer(); // le asignamos al ptr derecho el nodo siguiente al previo(?)
+		temp->ptrderP = actualArr;
+	}
 }
+
+
 
 ListArr::ListArr(int capacity){
 	this->count = 0;
