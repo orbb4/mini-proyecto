@@ -32,7 +32,7 @@ void ListArr::redoTree(){
 	// seguiremos creando nodos resumen hasta que alcanzen para todos los arreglos
 	// consideramos que un nodo resumen puede apuntar hasta 2 arreglos
 	int i = 1; // num de nodos en la ultima capa de nodos 
-	while(numRes*2 < pCount){
+	while(i*2 < pCount){
 		std::cout<<"entrando al while, con numRes="<<numRes<<std::endl; 
 		// creamos dos nodos resumen hijos para cada nodo en la ultima capa
 		// repetimos hasta tener los nodos resumen suficientes
