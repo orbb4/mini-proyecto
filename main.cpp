@@ -7,10 +7,11 @@ using namespace std;
 int main(){
 
 	ListArr* li = new ListArr(4);
-	for(int i = 0; i < 20; i++){
+	int n;
+	cin>>n;
+	for(int i = 0; i < n; i++){
 		li->insert_left(i);
 	}
-	li->print();
-	li->redoTree();
+	li->print(li->nodoTop);
 	return 0;
 }

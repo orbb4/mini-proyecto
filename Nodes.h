@@ -30,9 +30,10 @@ public:
 
 class rNode : public Node{ //Nodo resumen
 private:
+
+public:
 	int used;
 	int cap;
-public:
 	// ptr nodos resumen
 	rNode* ptrderR;
 	rNode* ptrizqR;
