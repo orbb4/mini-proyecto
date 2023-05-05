@@ -20,9 +20,11 @@ public:
 	void insert(int v, int i);
 	void print();
 	void printOrder(rNode* node);
+	int capacity();
 	bool find(int v);
 	void redoTree();
 	int updateTree(rNode* top);
+	int* getArr();
 };
 
 #endif

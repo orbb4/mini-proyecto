@@ -170,6 +170,30 @@ void ListArr::insert_right(int v){
 }
 
 void ListArr::insert(int v, int i){
+	pNode* current = nodoHead;
+	for (int j = 1; j <= i; ++j)
+	{
+		if (i == j)
+		{
+			int res = j%capacity();
+			if (current->used < capacity())
+			{
+				int* arr = current->getArr();
+				for (int u = current->getUsed()-1; u > j-1; i--)
+				{
+					arr[u] = arr[u+1];
+				}
+			}
+		}
+		if (j/nodoHead->getUsed() == 0 && nodoHead->getPtrDer() != nullptr)
+		{
+			current = nodoHead->getPtrDer();
+		}
+		if (j/nodoHead->getUsed() == 0 && nodoHead->getPtrDer() == nullptr)
+		{
+			std::cout<<"La posición solicitada no existe"<<std::endl;
+		}
+	}
 }
 
 void ListArr::print(){
@@ -201,4 +225,8 @@ void ListArr::printOrder(rNode* node){
 
 bool ListArr::find(int v){
 	return false;
+}
+
+int ListArr::capacity(){
+	return b;
 }
