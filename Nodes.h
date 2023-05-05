@@ -41,7 +41,7 @@ public:
 	pNode* ptrderP;
 	pNode* ptrizqP;
 
-	rNode(Node* ptrizq, Node* ptrder);
+	rNode(pNode* ptrizq, pNode* ptrder);
 };
 
 #endif

@@ -4,14 +4,21 @@
 
 // funcion que borra todos los nodos resumen existentes
 void destroyTree(rNode* top){
-	if(top == nullptr){
-		std::cout<<"no"<<std::endl;
+	std::cout<<"entering destroy tree"<<std::endl;
+	if(top == NULL){
+		std::cout<<"destroy tree finaliza correctamente"<<std::endl;
 		return;
+	}else{
+		
+		if(top->ptrizqR != nullptr){
+			destroyTree(top->ptrizqR);
+		}
+		if(top->ptrderR != nullptr){
+			destroyTree(top->ptrderR);
+		}
+		
 	}
 
-	destroyTree(top->ptrizqR);
-
-	destroyTree(top->ptrderR);
 	delete(top);
 }
 
@@ -45,7 +52,6 @@ int ListArr::updateTree(rNode* top){
 
 void ListArr::redoTree(){
 	destroyTree(nodoTop);
-	// la raiz del arbol
 	rNode *newtop = new rNode(nullptr, nullptr);
 	std::vector<rNode*> nodes;
 	nodes.push_back(newtop);
@@ -101,7 +107,7 @@ void ListArr::insert_left(int v){
 		pCount+=1;
 		rNode* top = new rNode(first, nullptr);
 		nodoTop = top;
-		std::cout<<"count==0"<<std::endl;
+		std::cout<<"insert left con count==0 "<<std::endl;
 	// si el arreglo de la izquierda está lleno, se crean 1 nuevos a la izquierda de la cola
 	}else if(nodoHead->getUsed() == b){
 		pNode *newNode = new pNode(nodoHead, b);

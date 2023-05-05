@@ -29,7 +29,9 @@ void pNode::setPtrder(pNode* ptrder){
 
 //COSAS DE RESUMEN
 
-rNode::rNode(Node* ptrizq, Node* ptrder){
-	this->ptrizq = ptrizq;
-	this->ptrder = ptrder;
+rNode::rNode(pNode* ptrizq, pNode* ptrder){
+	ptrderP = ptrizq;
+	ptrizqP = ptrder;
+	ptrderR = nullptr;
+	ptrizqR = nullptr;
 }
