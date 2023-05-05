@@ -5,49 +5,56 @@
 // funcion que borra todos los nodos resumen existentes
 void destroyTree(rNode* top){
 	std::cout<<"entering destroy tree"<<std::endl;
-	if(top == NULL){
+	if(top == nullptr){
 		std::cout<<"destroy tree finaliza correctamente"<<std::endl;
 		return;
 	}else{
-		
 		if(top->ptrizqR != nullptr){
+			std::cout<<"entering izq"<<std::endl;
 			destroyTree(top->ptrizqR);
 		}
 		if(top->ptrderR != nullptr){
+			std::cout<<"entering dder"<<std::endl;
 			destroyTree(top->ptrderR);
 		}
 		
 	}
-
+	std::cout<<"destroy tree finaliza correctamente"<<std::endl;
 	delete(top);
 }
 
 int ListArr::updateTree(rNode* top){
-	if (top == NULL) return -1;
+	if (top == nullptr) return -1;
  
     // first recur on left subtree
-    	int uno = updateTree(top->ptrizqR);
+    int uno = updateTree(top->ptrizqR);
  
-    	if(uno == -1 && top->ptrizqP){
-    		uno = top->ptrizqP->used;
-    	}else if(top->ptrizqP == NULL){
-	    	uno = 0;
-	    }
+    if(uno == -1 && top->ptrizqP != nullptr){
+    	uno = top->ptrizqP->used;
+    }else if(top->ptrizqP == nullptr && top->ptrizqR == nullptr){
+	   	uno = 0;
+	}
+	else{
+	    uno = top->ptrizqR->used;
+	}
     // then recur on right subtree
-	    int dos = updateTree(top->ptrderR);
+	int dos = updateTree(top->ptrderR);
 
-	    if (dos == -1 && top->ptrderP != NULL)
-	    {
-	    	dos = top->ptrderP->used;
+	if (dos == -1 && top->ptrderP != nullptr)
+	{
+		dos = top->ptrderP->used;
 
-	    }else if(top->ptrderP == NULL){
-	    	dos = 0;
-	    }
+	}else if(top->ptrderP == nullptr && top->ptrderR == nullptr){
+		dos = 0;
+	}
+	else{
+		dos = top->ptrderR->used;
+	}
     // now deal with the node
-	    top->used = uno + dos;
-    	std::cout <<"sum "<< top->used << std::endl;
+	top->used = uno + dos;
+    std::cout <<"sum "<< top->used << std::endl;
 
-    	return top->used;
+    return top->used;
 }
 
 void ListArr::redoTree(){
@@ -64,8 +71,8 @@ void ListArr::redoTree(){
 			rNode *n1 = new rNode(nullptr, nullptr);
 			rNode *n2 = new rNode(nullptr, nullptr);
 			rNode *temp = nodes.at(nodes.size()-1-j);
-			temp->ptrizqR = n1;
-			temp->ptrderR = n2;
+			temp->ptrizqR = n2;
+			temp->ptrderR = n1;
 			numRes+=2;
 			nodes.push_back(n1);
 			nodes.push_back(n2);
@@ -76,8 +83,15 @@ void ListArr::redoTree(){
 	for(int j = 0; j < i; j++){		
 		rNode *temp = nodes.at(nodes.size()-1-j);
 		temp->ptrizqP = actualArr;
-		actualArr=actualArr->getPtrDer();
+		if(actualArr->getPtrDer() != nullptr){
+			actualArr = actualArr->getPtrDer();
+		}
+		else{break;}
 		temp->ptrderP = actualArr;
+		if(actualArr->getPtrDer() != nullptr){
+			actualArr = actualArr->getPtrDer();
+		}
+		else{break;}
 	}
 	updateTree(nodoTop);
 }
@@ -132,7 +146,12 @@ void ListArr::insert_right(int v){
 		first->used++;
 		nodoHead = first;
 		nodoTail = first;
-		count++;
+		count+=1;
+		pCount+=1;
+		rNode* top = new rNode(first, nullptr);
+		nodoTop = top;
+		std::cout<<"insert right con count==0 "<<std::endl;
+
 	// si el arreglo de la derecha está lleno, se crea uno nuevo a la derecha de la cola
 	}else if(nodoTail->used == b){
 		pNode *newNode = new pNode(nullptr, b);
@@ -141,11 +160,11 @@ void ListArr::insert_right(int v){
 		nodoTail->setPtrder(newNode);
 		nodoTail = newNode;
 		count++;
+		pCount++;
+		redoTree();
 	// si queda espacio en la cola	
 	}else{
-		std::cout << "Used: " << nodoTail->used << std::endl;
-		int posicion = (nodoTail->used);
-		nodoTail->insert(posicion, v);
+		nodoTail->insert(nodoTail->used, v);
 		nodoTail->used++;
 	}
 }
@@ -153,28 +172,31 @@ void ListArr::insert_right(int v){
 void ListArr::insert(int v, int i){
 }
 
-void ListArr::print(rNode* node){
-	/*
+void ListArr::print(){
+	
 	pNode* current = nodoHead;
 	for(int i = 0; i<count;i++){
 		for(int u = 0; u<current->getUsed(); u++){
-			std::cout << current->getArr()[u] << std::endl;
+			std::cout << current->getArr()[u] << ", ";
 		}
 		current = current->getPtrDer();
-	}*/
+	}
+	std::cout << "" << std::endl;
+}
 
+void ListArr::printOrder(rNode* node){
 	if (node == NULL)
         return;
  
     /* first recur on left child */
-    print(node->ptrizqR);
+    printOrder(node->ptrizqR);
  
     /* then print the data of node */
-    std::cout << "node->used (print)"<<node->used << std::endl;
+    std::cout << "Usados preOrder: "<<node->used << std::endl;
  
     /* now recur on right child */
-    print(node->ptrderR);
-
+    printOrder(node->ptrderR);
+    std::cout << "Usados postOrder: "<<node->used << std::endl;
 }
 
 bool ListArr::find(int v){

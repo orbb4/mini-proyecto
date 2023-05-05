@@ -18,7 +18,8 @@ public:
 	void insert_left(int v);
 	void insert_right(int v);
 	void insert(int v, int i);
-	void print(rNode* node);
+	void print();
+	void printOrder(rNode* node);
 	bool find(int v);
 	void redoTree();
 	int updateTree(rNode* top);

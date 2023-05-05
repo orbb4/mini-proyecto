@@ -10,8 +10,10 @@ int main(){
 	int n;
 	cin>>n;
 	for(int i = 0; i < n; i++){
-		li->insert_left(i);
+		li->insert_right(i);
 	}
-	li->print(li->nodoTop);
+	li->updateTree(li->nodoTop);
+	li->print();
+	li->printOrder(li->nodoTop);
 	return 0;
 }
