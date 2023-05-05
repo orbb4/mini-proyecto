@@ -15,5 +15,8 @@ int main(){
 	li->updateTree(li->nodoTop);
 	li->print();
 	li->printOrder(li->nodoTop);
+	cout<<li->find(1)<<endl;
+	cout<<li->find(4)<<endl;
+	cout<<li->find(-200)<<endl;
 	return 0;
 }
