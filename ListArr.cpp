@@ -179,7 +179,7 @@ void ListArr::insert(int v, int i){
 			if (current->used < capacity())
 			{
 				int* arr = current->getArr();
-				for (int u = current->getUsed()-1; u > j-1; i--)
+				for (int u = current->getUsed()-1; u > res-1; i--)
 				{
 					arr[u] = arr[u+1];
 				}
