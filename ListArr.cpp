@@ -208,31 +208,59 @@ void ListArr::insert_right(int v){
 }
 
 void ListArr::insert(int v, int i){
-	pNode* current = nodoHead;
-	// desde 1 hasta el indice deseado
-	for (int j = 1; j <= i; ++j)
-	{
-		// si se llega al indice deseado...
-		if (i == j)
+	rNode* aux = nodoTop;
+	pNode* pAux = nullptr;
+	bool found = false;
+	if (i > aux->used) return;
+	while(!found){
+		if (aux->ptrizqR != nullptr && i < aux->ptrizqR->used)
 		{
-			int res = j%capacity();
-			if (current->used < capacity())
+			aux = aux->ptrizqR;
+		}
+		else if(aux->ptrderR != nullptr){
+			i -= aux->ptrizqR->used;
+			aux = aux->ptrderR;
+		}
+		if(aux->ptrderR == nullptr && aux->ptrizqR == nullptr){
+			if (aux->ptrizqP != nullptr && i < aux->ptrizqP->used)
 			{
-				int* arr = current->getArr();
-				for (int u = current->getUsed()-1; u > j-1; i--)
-				{
-					arr[u] = arr[u+1];
-				}
+				std::cout << "El elemento en la posición es: " << 
+				aux->ptrizqP->getArr()[i] << std::endl;
+				pAux = aux->ptrizqP;
+				found = true;
+			}
+			else if(aux->ptrderP != nullptr){
+				std::cout << "El elemento en la posición es: " << 
+				aux->ptrderP->getArr()[i] << std::endl;
+				pAux = aux->ptrderP;
+				found = true;
 			}
 		}
-		if (j/nodoHead->getUsed() == 0 && nodoHead->getPtrDer() != nullptr)
+	}
+	//Se encontró el nodo que tiene el índice i y es aux
+	if(pAux->used == capacity()){
+		pNode* newNode = new pNode(pAux->getPtrDer(), b);
+		pAux->setPtrder(newNode);
+		newNode->getArr()[0] = pAux->getArr()[pAux->used-1];
+		for (int j = i; j < pAux->used-1; j++)
 		{
-			current = nodoHead->getPtrDer();
+			pAux->getArr()[j+1] = pAux->getArr()[j];
 		}
-		if (j/nodoHead->getUsed() == 0 && nodoHead->getPtrDer() == nullptr)
+		pAux->getArr()[i] = v;
+		newNode->used++;
+		pCount++;
+		count++;
+		redoTree();
+	}
+	else{
+		for (int j = i; j < pAux->used-1; j++)
 		{
-			std::cout<<"La posición solicitada no existe"<<std::endl;
+			pAux->getArr()[j+1] = pAux->getArr()[j];
 		}
+		pAux->getArr()[i] = v;
+		pAux->used++;
+		count++;
+		redoTree();
 	}
 }
 
