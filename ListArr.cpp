@@ -53,9 +53,43 @@ int ListArr::updateTree(rNode* top){
     // now deal with the node
 	top->used = uno + dos;
     std::cout <<"sum "<< top->used << std::endl;
-
+	
     return top->used;
 }
+
+int ListArr::updateCap(rNode* top){
+	if (top == nullptr) return -1;
+ 
+    // first recur on left subtree
+    int uno = updateCap(top->ptrizqR);
+    if(uno == -1 && top->ptrizqP != nullptr){
+    	uno = b;
+    }else if(top->ptrizqP == nullptr && top->ptrizqR == nullptr){
+	   	uno = 0;
+	}
+	else{
+	    uno = top->ptrizqR->cap;
+	}
+    // then recur on right subtree
+	int dos = updateCap(top->ptrderR);
+
+	if (dos == -1 && top->ptrderP != nullptr)
+	{
+		dos = b;
+
+	}else if(top->ptrderP == nullptr && top->ptrderR == nullptr){
+		dos = 0;
+	}
+	else{
+		dos = top->ptrderR->cap;
+	}
+    // now deal with the node
+	top->cap = uno + dos;
+    std::cout <<"cap "<< top->cap << std::endl;
+	
+    return top->cap;
+}
+
 
 void ListArr::redoTree(){
 	destroyTree(nodoTop);
@@ -94,6 +128,7 @@ void ListArr::redoTree(){
 		else{break;}
 	}
 	updateTree(nodoTop);
+	updateCap(nodoTop);
 }
 
 
@@ -122,6 +157,7 @@ void ListArr::insert_left(int v){
 		rNode* top = new rNode(first, nullptr);
 		nodoTop = top;
 		std::cout<<"insert left con count==0 "<<std::endl;
+		updateCap(nodoTop);
 	// si el arreglo de la izquierda está lleno, se crean 1 nuevos a la izquierda de la cola
 	}else if(nodoHead->getUsed() == b){
 		pNode *newNode = new pNode(nodoHead, b);
@@ -135,6 +171,7 @@ void ListArr::insert_left(int v){
 		nodoHead->insert(nodoHead->getUsed(), v);
 		nodoHead->used++;
 	}
+	
 }
 
 //ToDo: añadir nodos resumen por cada dos nodos ListArr
@@ -151,7 +188,7 @@ void ListArr::insert_right(int v){
 		rNode* top = new rNode(first, nullptr);
 		nodoTop = top;
 		std::cout<<"insert right con count==0 "<<std::endl;
-
+		updateCap(nodoTop);
 	// si el arreglo de la derecha está lleno, se crea uno nuevo a la derecha de la cola
 	}else if(nodoTail->used == b){
 		pNode *newNode = new pNode(nullptr, b);
@@ -167,12 +204,15 @@ void ListArr::insert_right(int v){
 		nodoTail->insert(nodoTail->used, v);
 		nodoTail->used++;
 	}
+	
 }
 
 void ListArr::insert(int v, int i){
 	pNode* current = nodoHead;
+	// desde 1 hasta el indice deseado
 	for (int j = 1; j <= i; ++j)
 	{
+		// si se llega al indice deseado...
 		if (i == j)
 		{
 			int res = j%capacity();

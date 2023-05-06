@@ -18,5 +18,6 @@ int main(){
 	cout<<li->find(1)<<endl;
 	cout<<li->find(4)<<endl;
 	cout<<li->find(-200)<<endl;
+	cout<<li->nodoTop->cap<<endl;
 	return 0;
 }

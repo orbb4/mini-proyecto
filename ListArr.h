@@ -5,13 +5,14 @@
 
 class ListArr{
 private:
-	int b;
+	
 	int count;
 	int rCount;
 	int pCount;
 	pNode* nodoHead;
 	pNode* nodoTail;
 public:
+	int b;
 	rNode* nodoTop;
 	ListArr(int b);
 	int size();
@@ -24,6 +25,7 @@ public:
 	bool find(int v);
 	void redoTree();
 	int updateTree(rNode* top);
+	int updateCap(rNode* top);
 	int* getArr();
 };
 
