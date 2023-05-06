@@ -230,6 +230,7 @@ void ListArr::insert(int v, int i){
 				found = true;
 			}
 			else if(aux->ptrderP != nullptr){
+				i -= aux->ptrizqP->used;
 				std::cout << "El elemento en la posición es: " << 
 				aux->ptrderP->getArr()[i] << std::endl;
 				pAux = aux->ptrderP;
@@ -238,13 +239,14 @@ void ListArr::insert(int v, int i){
 		}
 	}
 	//Se encontró el nodo que tiene el índice i y es aux
-	if(pAux->used == capacity()){
+	if(pAux->used == b && found){
 		pNode* newNode = new pNode(pAux->getPtrDer(), b);
 		pAux->setPtrder(newNode);
 		newNode->getArr()[0] = pAux->getArr()[pAux->used-1];
-		for (int j = i; j < pAux->used-1; j++)
+		std::cout<<"la i es: "<<i<<std::endl;
+		for (int j = b-1; j > i; j--)
 		{
-			pAux->getArr()[j+1] = pAux->getArr()[j];
+			pAux->getArr()[j] = pAux->getArr()[j-1];
 		}
 		pAux->getArr()[i] = v;
 		newNode->used++;
@@ -252,10 +254,10 @@ void ListArr::insert(int v, int i){
 		count++;
 		redoTree();
 	}
-	else{
-		for (int j = i; j < pAux->used-1; j++)
+	else if(pAux->used != b && found){
+		for (int j = pAux->used-1; j > i; j--)
 		{
-			pAux->getArr()[j+1] = pAux->getArr()[j];
+			pAux->getArr()[j] = pAux->getArr()[j-1];
 		}
 		pAux->getArr()[i] = v;
 		pAux->used++;
