@@ -4,22 +4,17 @@
 
 // funcion que borra todos los nodos resumen existentes
 void destroyTree(rNode* top){
-	std::cout<<"entering destroy tree"<<std::endl;
 	if(top == nullptr){
-		std::cout<<"destroy tree finaliza correctamente"<<std::endl;
 		return;
 	}else{
 		if(top->ptrizqR != nullptr){
-			std::cout<<"entering izq"<<std::endl;
 			destroyTree(top->ptrizqR);
 		}
 		if(top->ptrderR != nullptr){
-			std::cout<<"entering dder"<<std::endl;
 			destroyTree(top->ptrderR);
 		}
 		
 	}
-	std::cout<<"destroy tree finaliza correctamente"<<std::endl;
 	delete(top);
 }
 
@@ -52,7 +47,6 @@ int ListArr::updateTree(rNode* top){
 	}
     // now deal with the node
 	top->used = uno + dos;
-    std::cout <<"sum "<< top->used << std::endl;
 	
     return top->used;
 }
@@ -85,7 +79,6 @@ int ListArr::updateCap(rNode* top){
 	}
     // now deal with the node
 	top->cap = uno + dos;
-    std::cout <<"cap "<< top->cap << std::endl;
 	
     return top->cap;
 }
@@ -98,7 +91,6 @@ void ListArr::redoTree(){
 	nodes.push_back(newtop);
 	int numRes = 1; 
 	nodoTop = newtop;
-	std::cout<<"arbol"<<std::endl;
 	int i = 1;
 	while(i*2 < pCount){
 		for(int j = 0; j < i; j++){
@@ -138,7 +130,6 @@ ListArr::ListArr(int capacity){
 	rCount = 0;
 	pCount = 0;
 	this->b = capacity;
-	std::cout<<"Recordatorio de que hay que borrar las banderas :>"<<std::endl;
 }
 
 int ListArr::size(){
@@ -156,7 +147,6 @@ void ListArr::insert_left(int v){
 		pCount+=1;
 		rNode* top = new rNode(first, nullptr);
 		nodoTop = top;
-		std::cout<<"insert left con count==0 "<<std::endl;
 		updateCap(nodoTop);
 	// si el arreglo de la izquierda está lleno, se crean 1 nuevos a la izquierda de la cola
 	}else if(nodoHead->getUsed() == b){
@@ -187,7 +177,6 @@ void ListArr::insert_right(int v){
 		pCount+=1;
 		rNode* top = new rNode(first, nullptr);
 		nodoTop = top;
-		std::cout<<"insert right con count==0 "<<std::endl;
 		updateCap(nodoTop);
 	// si el arreglo de la derecha está lleno, se crea uno nuevo a la derecha de la cola
 	}else if(nodoTail->used == b){
@@ -224,15 +213,11 @@ void ListArr::insert(int v, int i){
 		if(aux->ptrderR == nullptr && aux->ptrizqR == nullptr){
 			if (aux->ptrizqP != nullptr && i < aux->ptrizqP->used)
 			{
-				std::cout << "El elemento en la posición es: " << 
-				aux->ptrizqP->getArr()[i] << std::endl;
 				pAux = aux->ptrizqP;
 				found = true;
 			}
 			else if(aux->ptrderP != nullptr){
 				i -= aux->ptrizqP->used;
-				std::cout << "El elemento en la posición es: " << 
-				aux->ptrderP->getArr()[i] << std::endl;
 				pAux = aux->ptrderP;
 				found = true;
 			}
@@ -243,7 +228,7 @@ void ListArr::insert(int v, int i){
 		pNode* newNode = new pNode(pAux->getPtrDer(), b);
 		pAux->setPtrder(newNode);
 		newNode->getArr()[0] = pAux->getArr()[pAux->used-1];
-		std::cout<<"la i es: "<<i<<std::endl;
+
 		for (int j = b-1; j > i; j--)
 		{
 			pAux->getArr()[j] = pAux->getArr()[j-1];
