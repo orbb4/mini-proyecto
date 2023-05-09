@@ -1,6 +1,7 @@
 #include "Nodes.h"
 #include <stdio.h>
-
+// se crea un nodo principal que contiene a un arreglo de capacidad b
+// el nodo contiene un puntero que apunta a otro nodo principal
 pNode::pNode(pNode* ptrder, int b){
 	this->b = b;
 	this->ptrder = ptrder;
@@ -27,8 +28,9 @@ void pNode::setPtrder(pNode* ptrder){
 	this->ptrder = ptrder;
 }
 
-//COSAS DE RESUMEN
 
+// Se crea un nodo resumen con dos punteros para nodos principales y otros
+// dos para nodos resumen.
 rNode::rNode(pNode* ptrizq, pNode* ptrder){
 	ptrderP = ptrizq;
 	ptrizqP = ptrder;
