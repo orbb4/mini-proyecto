@@ -18,10 +18,11 @@ void destroyTree(rNode* top){
 	delete(top);
 }
 
+// actualiza la variable used de cada nodo resumen
 int ListArr::updateTree(rNode* top){
 	if (top == nullptr) return -1;
  
-    // first recur on left subtree
+    // recorremos nodos del hijo izquierdo
     int uno = updateTree(top->ptrizqR);
  
     if(uno == -1 && top->ptrizqP != nullptr){
@@ -32,7 +33,7 @@ int ListArr::updateTree(rNode* top){
 	else{
 	    uno = top->ptrizqR->used;
 	}
-    // then recur on right subtree
+    // recorremos nodos del hijo derecho
 	int dos = updateTree(top->ptrderR);
 
 	if (dos == -1 && top->ptrderP != nullptr)
@@ -45,16 +46,16 @@ int ListArr::updateTree(rNode* top){
 	else{
 		dos = top->ptrderR->used;
 	}
-    // now deal with the node
+    // actualizamos datos del nodo
 	top->used = uno + dos;
 	
     return top->used;
 }
-
+// actualiza la variable cap (capacidad) de cada nodo resumen
 int ListArr::updateCap(rNode* top){
 	if (top == nullptr) return -1;
  
-    // first recur on left subtree
+    // recorremos nodos del hijo izquierdo
     int uno = updateCap(top->ptrizqR);
     if(uno == -1 && top->ptrizqP != nullptr){
     	uno = b;
@@ -64,7 +65,7 @@ int ListArr::updateCap(rNode* top){
 	else{
 	    uno = top->ptrizqR->cap;
 	}
-    // then recur on right subtree
+    // recorremos nodos del hijo derecho
 	int dos = updateCap(top->ptrderR);
 
 	if (dos == -1 && top->ptrderP != nullptr)
@@ -77,21 +78,26 @@ int ListArr::updateCap(rNode* top){
 	else{
 		dos = top->ptrderR->cap;
 	}
-    // now deal with the node
+    // actualizamos datos del nodo
 	top->cap = uno + dos;
 	
     return top->cap;
 }
 
-
+// elimina el arbol existente y crea uno nuevo en base a la cantidad de nodos principales existente
 void ListArr::redoTree(){
+	// destruimos el arbol ya existente para crear uno nuevo
 	destroyTree(nodoTop);
 	rNode *newtop = new rNode(nullptr, nullptr);
+	// almacenaremos los nuevos nodos de manera temporal en un vector
 	std::vector<rNode*> nodes;
 	nodes.push_back(newtop);
 	int numRes = 1; 
 	nodoTop = newtop;
 	int i = 1;
+	// se seguiran creando nodos resumen hasta que hayan los suficientes para enlazarlos
+	// con los nodos principales, considerando que cada nodo resumen puede enlazarse con
+	// hasta 2 nodos principales.
 	while(i*2 < pCount){
 		for(int j = 0; j < i; j++){
 			rNode *n1 = new rNode(nullptr, nullptr);
@@ -106,6 +112,8 @@ void ListArr::redoTree(){
 		i++;
 	}
 	pNode *actualArr = nodoHead;
+	// finalmente, enlazamos los nodos resumen creados previamente con los nodos principales
+	// ya existentes
 	for(int j = 0; j < i; j++){		
 		rNode *temp = nodes.at(nodes.size()-1-j);
 		temp->ptrizqP = actualArr;
@@ -119,6 +127,7 @@ void ListArr::redoTree(){
 		}
 		else{break;}
 	}
+	// actualizamos las variables de los nodos resumen: capacidad y espacios usados
 	updateTree(nodoTop);
 	updateCap(nodoTop);
 }
@@ -137,6 +146,7 @@ int ListArr::size(){
 }
 
 void ListArr::insert_left(int v){
+	// si no existen nodos principales, se crea uno nuevo que será tanto cabeza como cola
 	if(count == 0){	
 		pNode *first = new pNode(nullptr, b);
 		first->insert(0, v);
@@ -157,6 +167,7 @@ void ListArr::insert_left(int v){
 		count++;
 		pCount++;
 		redoTree();
+	// si queda espacio para insertar a la izquierda
 	}else{
 		nodoHead->insert(nodoHead->getUsed(), v);
 		nodoHead->used++;
@@ -166,7 +177,7 @@ void ListArr::insert_left(int v){
 
 //ToDo: añadir nodos resumen por cada dos nodos ListArr
 void ListArr::insert_right(int v){
-	// si no hay ningun array creado
+	// si no existen nodos principales, se crea uno nuevo que será tanto cabeza como cola
 	if(count == 0){
 		pNode *first = new pNode(nullptr, b);
 		first->insert(0, v);
@@ -263,17 +274,17 @@ void ListArr::print(){
 	std::cout << "" << std::endl;
 }
 
+
 void ListArr::printOrder(rNode* node){
 	if (node == NULL)
         return;
  
-    /* first recur on left child */
+    // recorremos nodos del hijo izquierdo
     printOrder(node->ptrizqR);
  
-    /* then print the data of node */
     std::cout << "Usados preOrder: "<<node->used << std::endl;
  
-    /* now recur on right child */
+    // recorremos nodos del hijo derecho
     printOrder(node->ptrderR);
     std::cout << "Usados postOrder: "<<node->used << std::endl;
 }
